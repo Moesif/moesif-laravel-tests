@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('myfirstpage', function()
-{
+Route::get('myfirstpage', function() {
     return 'hello world';
 });
