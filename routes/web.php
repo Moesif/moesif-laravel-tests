@@ -19,3 +19,11 @@ Route::get('/', function () {
 Route::get('myfirstpage', function() {
     return 'hello world';
 });
+
+Route::get('mysecondpage', function() {
+    return 'hello world';
+})->middleware('auth:web');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
