@@ -42,103 +42,116 @@ class MoesifLaravel
 
         $response = $next($request);
 
-
+        $applicationId = config('moesif.applicationId');
+        $apiVersion = config('moesif.apiVersion');
         $maskRequestHeaders = config('moesif.maskRequestHeaders');
         $maskRequestBody = config('moesif.maskRequestBody');
-        $maskRequestHeaders = config('moesif.maskResponseHeaders');
-        $maskRequestBody = config('moesif.maskResponseBody');
+        $maskResponseHeaders = config('moesif.maskResponseHeaders');
+        $maskResponseBody = config('moesif.maskResponseBody');
         $identifyUserId = config('moesif.identifyUserId');
         $identifySessionId = config('moesif.identifySessionId');
 
-        $user = Auth::user();
+        $requestData = [
+            'time' => $startDateTime->format('Y-m-d\TH:i:s.uP'),
+            'verb' => $request->method(),
+            'uri' => $request->fullUrl(),
+            'ip' => $request->ip(),
+            'api_version' => $apiVersion
+        ];
 
-        $userId = null;
 
-        if (!is_null($identifyUserId)) {
-            $userId = $identifyUserId($request, $response);
-        } else if (!is_null($user)) {
-            $userId = $user['id'];
-        }
-
-        Log::info('user=' . $user);
-
-        Log::info('inside MoesifLaravel middleware start request');
-        Log::info('verb=' . $request->method());
-        Log::info('url=' . $request->fullUrl());
-        Log::info('ip=' . $request->ip());
-        Log::info('header=' . implode(', ', $request->headers->keys()));
-        Log::info('user from request=' . $request->user());
-
-        $user = Auth::user();
-
-        Log::info('userId=' . $user['id']);
-
-        if ($request->hasSession()) {
-            Log::info('sessionId=' . $request->session()->getId());
+        $requestHeaders = $request->headers->all();
+        if(!is_null($maskRequestHeaders)) {
+            $requestData['headers'] = $maskRequestHeaders($requestHeaders);
         } else {
-            Log::info('no session');
+            $requestData['headers'] = $requestHeaders;
         }
 
-        // headerbag function all() returns the array dict of headers.
-
-        Log::info('res_status=' . $response->status());
-
-        $configTestVal = config('moesif.testval');
-        $configTestFunc = config('moesif.testfunc');
-        $applicationId = config('moesif.applicationId');
-
-        Log::info('got config val=' . $configTestVal);
-        Log::info('shouldn not have anything=' . config('moesif.notexistval'));
-        Log::info('res_headers=' . implode(', ', $response->headers->keys()));
-        Log::info('res_body=' . $response->content());
-        Log::info('got config func=' . $configTestFunc(10) );
-        // do action after response
-
-        $moesifApi = MoesifApi::getInstance($applicationId, ['fork'=>true, 'debug'=>true]);
-
+        if($request->isJson()) {
+            $requestBody = $request->json();
+            if (!is_null($maskRequestBody)) {
+                $requestData['body'] = $maskRequestBody($requestBody);
+            } else {
+                $requestData['body'] = $requestBody;
+            }
+        }
 
         $endTime = microTime(true);
         $micro = sprintf("%06d",($endTime - floor($endTime)) * 1000000);
         $endDateTime = new DateTime( date('Y-m-d H:i:s.'.$micro, $endTime) );
         $endDateTime->setTimezone(new DateTimeZone("UTC"));
 
-        $data = [
-            'request' => [
-                'time' => $startDateTime->format('Y-m-d\TH:i:s.uP'),
-                'verb' => $request->method(),
-                'url' => $request->fullUrl(),
-                'ip' => $request->ip(),
-                'headers' => $request->headers->all(),
-                'body' => $request->getContent()
-            ],
-            'response' => [
-                'time' => $endDateTime->format('Y-m-d\TH:i:s.uP'),
-                'headers' => $response->headers->all(),
-                'body' => $response->content(),
-                'status' => $response->status()
-            ],
+        $responseData = [
+            'time' => $endDateTime->format('Y-m-d\TH:i:s.uP'),
+            'status' => $response->status()
         ];
-        if (!is_null($userId)) {
-            $data['user_id'] = $userId;
+
+        $jsonBody = json_decode($response->content(), true);
+
+        if(!is_null($jsonBody)) {
+            if (!is_null($maskResponseBody)) {
+                $responseData['body'] = $maskResponseBody($jsonBody);
+            } else {
+                $responseData['body'] = $jsonBody;
+            }
+        } else {
+            // that means that json can't be parsed.
+            // so send the entire string for error analysis.
+            $responseData['body'] = $response->content();
         }
 
+        if(!is_null($maskResponseHeaders)) {
+            $responseData['headers'] = $maskResponseHeaders($response->headers->all());
+        } else {
+            $responseData['headers'] = $response->headers->all();
+        }
 
-        //$d = new DateTime();
+        $data = [
+            'request' => $requestData,
+            'response' => $responseData
+        ];
+
+        $user = $request->user();
+
+        if (!is_null($identifyUserId)) {
+            $data['user_id'] = $identifyUserId($request, $response);
+        } else if (!is_null($user)) {
+            $data['user_id'] = $user['id'];
+        }
+
+        $sessionId = null;
+
+        if (!is_null($identifySessionId)) {
+            $data['session_token'] = $identifySessionId($request, $response);
+        } else if ($request->hasSession()) {
+            $data['session_token'] = $request->session()->getId();
+        }
+        // Log::info('user=' . $user);
+        //
+        // Log::info('inside MoesifLaravel middleware start request');
+        // Log::info('verb=' . $request->method());
+        // Log::info('url=' . $request->fullUrl());
+        // Log::info('ip=' . $request->ip());
+        // Log::info('header=' . implode(', ', $request->headers->keys()));
+        // Log::info('user from request=' . $request->user());
+        // $user = Auth::user();
+        // Log::info('userId=' . $user['id']);
+
+        // headerbag function all() returns the array dict of headers.
+        // Log::info('res_status=' . $response->status());
+        // $configTestVal = config('moesif.testval');
+        // $configTestFunc = config('moesif.testfunc');
 
 
+        // Log::info('got config val=' . $configTestVal);
+        // Log::info('shouldn not have anything=' . config('moesif.notexistval'));
+        // Log::info('res_headers=' . implode(', ', $response->headers->keys()));
+        // Log::info('res_body=' . $response->content());
+        // Log::info('got config func=' . $configTestFunc(10) );
 
+        $moesifApi = MoesifApi::getInstance($applicationId, ['fork'=>true, 'debug'=>true]);
 
-
-
-
-        Log::info('end time: '. $d->format(Datetime::ATOM));
-
-        Log::info('end time: ' . $endTime);
         $moesifApi->track($data);
-
-        // $worker = new MoesifSenderThread();
-        // // $thread = new WorkerThread();
-        // $thread->wait()->run($request->headers);
 
         return $response;
     }

@@ -90,6 +90,7 @@ return [
     'maskResponseBody' => $maskResponseBody,
     'identifyUserId' => $identifyUserId,
     'identifySessionId' => $identifySessionId,
+    'apiVersion' => '1.2.2',
     'addTags' => $addTags,
     'testval' => 5,
     'testfunc' => $myTestFunction,
