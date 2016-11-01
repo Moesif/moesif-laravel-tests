@@ -22,3 +22,7 @@ Route::get('/user', function (Request $request) {
 Route::get('/firstapi', function (Request $request) {
     return new JsonResponse( [["foo" => 1, "bar" => [1, 2, 3]], 200, array()]);
 });
+
+Route::get('/test/{v}', 'MoesifTestApiController@index');
+
+Route::get('/test/table/{v}', 'MoesifTestApiController@table');

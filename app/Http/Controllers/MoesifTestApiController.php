@@ -26,7 +26,6 @@ class MoesifTestApiController extends Controller
 
     public function table()
     {
-        $this->middleware('moesif:userIdABC,sessionIdABC');
         return new JsonResponse([
             "myname" => "xing",
             "state" => "dude"
