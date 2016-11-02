@@ -74,12 +74,16 @@ class MoesifLaravel
         }
 
         if($request->isJson()) {
-            $requestBody = $request->json();
+            // Log::info('request body is json');
+            $requestBody = json_decode($request->getContent(), true);
+            // Log::info('' . $requestBody);
             if (!is_null($maskRequestBody)) {
                 $requestData['body'] = $maskRequestBody($requestBody);
             } else {
                 $requestData['body'] = $requestBody;
             }
+        } else {
+            //Log::info('request body is not json');
         }
 
         $endTime = microTime(true);
