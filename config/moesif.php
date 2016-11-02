@@ -83,7 +83,7 @@ $addTags = function($request, $response) {
 };
 
 return [
-    'applicationId' => 'eyJhcHAiOiIzNDU6MSIsInZlciI6IjIuMCIsIm9yZyI6Ijg4OjIiLCJpYXQiOjE0NzcwMDgwMDB9.576_l8Bza-gOoKzBR4_qnKEQOi2UYHh_FAK9IoDdUgc',
+    'applicationId' => 'eyJhcHAiOiIzNDU6MSIsInZlciI6IjIuMCIsIm9yZyI6Ijg4OjIiLCJpYXQiOjE0NzgwNDQ4MDB9.apaKCV6N8JvJHaedte0fGPuYNM4ss2L4uyX0WinaD2w',
     'maskRequestHeaders' => $maskRequestHeaders,
     'maksRequestBody' => $maskRequestBody,
     'maskResponseHeaders' => $maskResponseHeaders,

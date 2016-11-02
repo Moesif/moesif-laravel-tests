@@ -66,7 +66,7 @@ class SendCurlTaskConsumer extends SendTaskConsumer {
      */
     public function persist($batch) {
         if (count($batch) > 0) {
-            $data = "data=" . $this->_encode($batch);
+            $data = $this->_encode($batch);
             $url = $this->_protocol . "://" . $this->_host . $this->_endpoint;
             if ($this->_fork) {
                 return $this->_execute_forked($url, $data);
@@ -133,9 +133,12 @@ class SendCurlTaskConsumer extends SendTaskConsumer {
         if ($this->_debug()) {
             $this->_log("Making forked cURL call to $url");
         }
-        $exec = 'curl -X POST -H "Content-Type: application/json" -H "X-Moesif-Application-Id: ' . $applicationId .'" -d ' . $data . ' "' . $url . '"';
-        if(!$this->_debug()) {
-            $exec .= " >/dev/null 2>&1 &";
+        $exec = 'curl -v -X POST -H "Content-Type: application/json" -H "X-Moesif-Application-Id: ' . $applicationId .'" -d \'' . $data . '\' "' . $url . '"';
+        // if(!$this->_debug()) {
+        //     $exec .= " >/dev/null 2>&1 &";
+        // }
+        if ($this->_debug()) {
+            $this->_log($exec);
         }
         exec($exec, $output, $return_var);
         if ($return_var != 0) {

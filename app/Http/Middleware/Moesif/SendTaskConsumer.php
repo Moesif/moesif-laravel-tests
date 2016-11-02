@@ -46,7 +46,7 @@ abstract class SendTaskConsumer extends BaseClass {
             $arr = debug_backtrace();
             $class = get_class($arr[0]['object']);
             $line = $arr[0]['line'];
-            error_log ( "[ $class - line $line ] : " . print_r($msg, true) );
+            $this->_log ( "[ $class - line $line ] : " . print_r($msg, true) );
         }
     }
     /**

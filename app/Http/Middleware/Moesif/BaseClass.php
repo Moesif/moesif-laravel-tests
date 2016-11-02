@@ -18,7 +18,7 @@ class BaseClass {
         "max_queue_size"    => 15, // the max num of items to hold in memory before flushing
         "debug"             => false, // enable/disable debug mode
         "consumer"          => "curl", // which consumer to use
-        "host"              => "api.moesif.com", // the host name for api calls
+        "host"              => "api.moesif.net", // the host name for api calls
         "use_ssl"           => true, // use ssl when available
         "error_callback"    => null // callback to use on consumption failures
     );

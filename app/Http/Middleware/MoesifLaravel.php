@@ -55,12 +55,18 @@ class MoesifLaravel
             'time' => $startDateTime->format('Y-m-d\TH:i:s.uP'),
             'verb' => $request->method(),
             'uri' => $request->fullUrl(),
-            'ip' => $request->ip(),
+            'ip_address' => $request->ip(),
             'api_version' => $apiVersion
         ];
 
 
-        $requestHeaders = $request->headers->all();
+
+        $requestHeaders = [];
+        foreach($request->headers->keys() as $key) {
+            $requestHeaders[$key] = (string) $request->headers->get($key);
+        }
+        // can't use headers->all() because it is an array of arrays.
+        // $request->headers->all();
         if(!is_null($maskRequestHeaders)) {
             $requestData['headers'] = $maskRequestHeaders($requestHeaders);
         } else {
@@ -100,10 +106,15 @@ class MoesifLaravel
             $responseData['body'] = $response->content();
         }
 
+        $responseHeaders = [];
+        foreach($response->headers->keys() as $key) {
+            $responseHeaders[$key] = (string) $response->headers->get($key);
+        }
+
         if(!is_null($maskResponseHeaders)) {
-            $responseData['headers'] = $maskResponseHeaders($response->headers->all());
+            $responseData['headers'] = $maskResponseHeaders($responseHeaders);
         } else {
-            $responseData['headers'] = $response->headers->all();
+            $responseData['headers'] = $responseHeaders;
         }
 
         $data = [
@@ -119,12 +130,12 @@ class MoesifLaravel
             $data['user_id'] = $user['id'];
         }
 
-        $sessionId = null;
-
         if (!is_null($identifySessionId)) {
             $data['session_token'] = $identifySessionId($request, $response);
         } else if ($request->hasSession()) {
             $data['session_token'] = $request->session()->getId();
+        } else {
+            $data['session_token'] = 'none';
         }
         // Log::info('user=' . $user);
         //
