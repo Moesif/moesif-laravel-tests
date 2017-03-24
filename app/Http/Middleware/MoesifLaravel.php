@@ -50,6 +50,11 @@ class MoesifLaravel
         $maskResponseBody = config('moesif.maskResponseBody');
         $identifyUserId = config('moesif.identifyUserId');
         $identifySessionId = config('moesif.identifySessionId');
+        $shouldBeNull = config('moesif.notexist');
+
+        // if (is_null($shouldBeNull)) {
+        //     Log::info('yeah, should be null is true.');
+        // }
 
         $requestData = [
             'time' => $startDateTime->format('Y-m-d\TH:i:s.uP'),

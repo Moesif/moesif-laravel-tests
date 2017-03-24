@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        'moesif' => \App\Http\Middleware\MoesifLaravel::class,
+        \Moesif\Middleware\MoesifLaravel::class,
     ];
 
     /**

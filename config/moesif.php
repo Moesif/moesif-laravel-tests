@@ -1,10 +1,5 @@
 <?php
 
-
-$myTestFunction = function($val) {
-    return $val + 5;
-};
-
 /**
  * mask request headers by removing fields
  *
@@ -23,7 +18,6 @@ $maskRequestHeaders = function($headers) {
 $maskRequestBody = function($body) {
     return $body;
 };
-
 
 /**
  * mask request headers by removing fields
@@ -72,7 +66,6 @@ $identifySessionId = function($request, $response) {
     }
 };
 
-
 /**
  * If you want to add any other tags to this event. Please comma separate them,
  *
@@ -83,7 +76,7 @@ $addTags = function($request, $response) {
 };
 
 return [
-    'applicationId' => 'eyJhcHAiOiIzNDU6MSIsInZlciI6IjIuMCIsIm9yZyI6Ijg4OjIiLCJpYXQiOjE0NzgwNDQ4MDB9.apaKCV6N8JvJHaedte0fGPuYNM4ss2L4uyX0WinaD2w',
+    'applicationId' => 'eyJhcHAiOiI0NDI6MjAiLCJ2ZXIiOiIyLjAiLCJvcmciOiIzNTE6MTUiLCJpYXQiOjE0OTAzMTM2MDB9.opX5hDi77g8pJ5OLnmG2L9K3Kzb2DT980AFwPd0xeHU',
     'maskRequestHeaders' => $maskRequestHeaders,
     'maksRequestBody' => $maskRequestBody,
     'maskResponseHeaders' => $maskResponseHeaders,
@@ -91,7 +84,6 @@ return [
     'identifyUserId' => $identifyUserId,
     'identifySessionId' => $identifySessionId,
     'apiVersion' => '1.2.2',
-    'addTags' => $addTags,
-    'testval' => 5,
-    'testfunc' => $myTestFunction,
+    'debug' => true,
+    'addTags' => $addTags
 ];
