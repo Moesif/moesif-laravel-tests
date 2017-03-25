@@ -27,6 +27,16 @@ Route::get('/thirdapi', function (Request $request) {
     return new JsonResponse(["foo" => 1, "bar" => [1, 2, 3]]);
 });
 
+Route::post('/postapi', function (Request $request) {
+  return new JsonResponse(["success" => 1]);
+});
+
+Route::get('/nonjson', function (Request $request) {
+  return response('<html><body><h1>abcdefg</h1></body></html>')
+      ->header('My-header-1', 'Header1 val');
+});
+
+
 Route::get('/test/{v}', 'MoesifTestApiController@index');
 
 Route::get('/test/table/{v}', 'MoesifTestApiController@table');
