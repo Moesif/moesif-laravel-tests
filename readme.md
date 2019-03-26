@@ -14,14 +14,9 @@ Laravel is accessible, yet powerful, providing tools needed for large, robust ap
 
 Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## How to Test
+1. Manually clone the git repo.
+2. Install all the dependencies by `composer install` or `composer update`.
+3. Add your own application id to `config/moesif.php`. You can find your Application Id from [_Moesif Dashboard_](https://www.moesif.com/) -> _Top Right Menu_ -> _Installation_
+4. From terminal/cmd navigate to the root directory of the middleware.
+5. Invoke `./vendor/bin/phpunit` to run the tests.
