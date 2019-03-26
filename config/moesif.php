@@ -76,7 +76,7 @@ $addTags = function($request, $response) {
 };
 
 return [
-    'applicationId' => 'eyJhcHAiOiI0NDI6MjAiLCJ2ZXIiOiIyLjAiLCJvcmciOiIzNTE6MTUiLCJpYXQiOjE0OTAzMTM2MDB9.opX5hDi77g8pJ5OLnmG2L9K3Kzb2DT980AFwPd0xeHU',
+    'applicationId' => 'Your Application Id',
     'maskRequestHeaders' => $maskRequestHeaders,
     'maksRequestBody' => $maskRequestBody,
     'maskResponseHeaders' => $maskResponseHeaders,
