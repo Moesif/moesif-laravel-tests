@@ -80,4 +80,64 @@ class MoesifMiddlewareTest extends TestCase
         $middleware = new MoesifLaravel();
         $middleware->updateUsersBatch($users);
     }
+
+    /**
+     * Update Company.
+     *
+     * @return void
+     */
+    public function testUpdateCompany() 
+    {
+        $company = array(
+            "company_id" => "phpapicompany",
+            "metadata" => array(
+                "email" => "johndoe@acmeinc.com",
+                "string_field" => "value_1",
+                "number_field" => 0,
+                "object_field" => array(
+                    "field_a" => "value_a",
+                    "field_b" => "value_b"
+                )
+            ),
+        );
+        $middleware = new MoesifLaravel();
+        $middleware->updateCompany($company);
+    }
+
+    /**
+     * Update Companies Batch.
+     *
+     * @return void
+     */
+    public function testUpdateCompaniesBatch()
+    {
+        $metadata = array(
+            "email" => "johndoe@acmeinc.com",
+            "string_field" => "value_1",
+            "number_field" => 0,
+            "object_field" => array(
+                "field_a" => "value_a",
+                "field_b" => "value_b"
+            )
+            );
+
+        $companyA = array(
+            "company_id" => "phpapicompany",
+            "metadata" => $metadata,
+            "company_domain" => "acmeinc.com"
+        );
+
+        $companyB = array(
+            "company_id" => "phpapicompany1",
+            "metadata" => $metadata,
+            "company_domain" => "nowhere.com"
+        );
+
+        $companies = array();
+        $companies[] = $companyA;
+        $companies[] = $companyB;
+
+        $middleware = new MoesifLaravel();
+        $middleware->updateCompaniesBatch($companies);
+    }
 }

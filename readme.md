@@ -18,5 +18,5 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 1. Manually clone the git repo.
 2. Install all the dependencies by `composer install` or `composer update`.
 3. Add your own application id to `config/moesif.php`. You can find your Application Id from [_Moesif Dashboard_](https://www.moesif.com/) -> _Top Right Menu_ -> _Installation_
-4. From terminal/cmd navigate to the root directory of the middleware.
+4. From terminal/cmd navigate to the root directory of the repo.
 5. Invoke `./vendor/bin/phpunit` to run the tests.
