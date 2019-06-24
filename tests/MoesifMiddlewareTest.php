@@ -90,6 +90,7 @@ class MoesifMiddlewareTest extends TestCase
     {
         $company = array(
             "company_id" => "phpapicompany",
+            "company_domain" => "acmeinc.com",
             "metadata" => array(
                 "email" => "johndoe@acmeinc.com",
                 "string_field" => "value_1",
