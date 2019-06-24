@@ -67,6 +67,16 @@ $identifySessionId = function($request, $response) {
 };
 
 /**
+ * Use this function to set companyId.
+ *
+ * @return string
+ */
+
+$identifyCompanyId = function($request, $response) {
+    return "12345";
+};
+
+/**
  * If you want to add any other tags to this event. Please comma separate them,
  *
  * @return string
@@ -82,6 +92,7 @@ return [
     'maskResponseHeaders' => $maskResponseHeaders,
     'maskResponseBody' => $maskResponseBody,
     'identifyUserId' => $identifyUserId,
+    'identifyCompanyId' => $identifyCompanyId,
     'identifySessionId' => $identifySessionId,
     'apiVersion' => '1.2.2',
     'debug' => false,
