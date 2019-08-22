@@ -31,7 +31,8 @@ class MoesifMiddlewareTest extends TestCase
     public function testUpdateUser() 
     {
         $user = array(
-            "user_id" => "phpapiuser",
+            "user_id" => "12345",
+            "company_id" => "67890",
             "metadata" => array(
                 "email" => "johndoe@acmeinc.com",
                 "string_field" => "value_1",
@@ -64,12 +65,14 @@ class MoesifMiddlewareTest extends TestCase
             );
 
         $userA = array(
-            "user_id" => "phpapiuser",
+            "user_id" => "12345",
+            "company_id" => "67890",
             "metadata" => $metadata,
         );
 
         $userB = array(
-            "user_id" => "phpapiuser1",
+            "user_id" => "1234",
+            "company_id" => "6789",
             "metadata" => $metadata,
         );
 
@@ -89,7 +92,7 @@ class MoesifMiddlewareTest extends TestCase
     public function testUpdateCompany() 
     {
         $company = array(
-            "company_id" => "phpapicompany",
+            "company_id" => "12345",
             "company_domain" => "acmeinc.com",
             "metadata" => array(
                 "email" => "johndoe@acmeinc.com",
@@ -123,13 +126,13 @@ class MoesifMiddlewareTest extends TestCase
             );
 
         $companyA = array(
-            "company_id" => "phpapicompany",
+            "company_id" => "12345",
             "metadata" => $metadata,
             "company_domain" => "acmeinc.com"
         );
 
         $companyB = array(
-            "company_id" => "phpapicompany1",
+            "company_id" => "67890",
             "metadata" => $metadata,
             "company_domain" => "nowhere.com"
         );
