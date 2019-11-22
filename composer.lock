@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39e77b34489920604625c63a37a43960",
+    "content-hash": "4388078549805b63adcb3ba8a2ea2e0e",
     "packages": [
         {
             "name": "apimatic/jsonmapper",
@@ -1446,16 +1446,16 @@
         },
         {
             "name": "moesif/moesif-laravel",
-            "version": "1.4.4",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Moesif/moesif-laravel.git",
-                "reference": "0821ab0e412aa327710159687f312ab867f1018b"
+                "reference": "cd9f803e09d8bdd149deb9271da3ef63751a5082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Moesif/moesif-laravel/zipball/0821ab0e412aa327710159687f312ab867f1018b",
-                "reference": "0821ab0e412aa327710159687f312ab867f1018b",
+                "url": "https://api.github.com/repos/Moesif/moesif-laravel/zipball/cd9f803e09d8bdd149deb9271da3ef63751a5082",
+                "reference": "cd9f803e09d8bdd149deb9271da3ef63751a5082",
                 "shasum": ""
             },
             "require": {
@@ -1504,7 +1504,7 @@
                 "logging",
                 "middleware"
             ],
-            "time": "2019-09-05T23:21:00+00:00"
+            "time": "2019-11-19T01:11:35+00:00"
         },
         {
             "name": "monolog/monolog",
